@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  token: { type: String, default: null } // JWT token
 });
 
 module.exports = mongoose.model('User', UserSchema);

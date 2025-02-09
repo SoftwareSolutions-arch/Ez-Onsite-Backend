@@ -23,4 +23,29 @@ exports.loginUser = async (req, res) => {
   } catch (err) {
       res.status(500).json({ message: "Server error", error: err.message });
   }
+  
+};
+
+exports.logoutUser = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+
+        if (!token) {
+            return res.status(400).json({ message: "Token is required" });
+        }
+
+        const success = await authService.logoutUser(token);
+
+        if (!success) {
+            return res.status(400).json({ message: "Logout failed" });
+        }
+
+        res.status(200).json({ 
+            status:"success",
+            message: "Logged out successfully" 
+        });
+
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
 };

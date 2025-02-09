@@ -18,11 +18,31 @@ exports.authenticateUser = async (email, password) => {
 
         // Generate JWT token
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-        console.log('token', token);
-
+        if (!user.token || user.token !== token) {
+            user.token = token;
+            await user.save();
+        }
+       
         return { success: true, message: "Login successful", token };
     } catch (error) {
         return { success: false, message: "Server error", error: error.message };
+    }
+};
+
+exports.logoutUser = async (token) => {
+    try {
+        const user = await User.findOne({ token });
+
+        if (!user) {
+            return false;
+        }
+
+        user.token = null; // Clear token from DB
+        await user.save();
+
+        return true;
+    } catch (error) {
+        return false;
     }
 };
 
