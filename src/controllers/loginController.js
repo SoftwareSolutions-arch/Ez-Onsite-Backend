@@ -11,7 +11,7 @@ exports.loginUser = async (req, res) => {
       }
 
       // Call service function to authenticate user
-      const { success, message, token } = await loginService.authenticateUser(email, password);
+      const { success, message, id, token } = await loginService.authenticateUser(email, password);
 
       if (!success) {
           return res.status(400).json({ message });
@@ -20,6 +20,7 @@ exports.loginUser = async (req, res) => {
       res.status(200).json({ 
         status: 'success',
         message:message,
+        id: id,
         token : token
         });
   } catch (err) {

@@ -25,7 +25,7 @@ exports.authenticateUser = async (email, password) => {
             await user.save();
         }
        
-        return { success: true, message: "Login successful", token };
+        return { success: true, message: "Login successful", id:user._id,token };
     } catch (error) {
         return { success: false, message: "Server error", error: error.message };
     }
@@ -86,8 +86,6 @@ exports.forgotPassword = async (email) => {
         return { status: 500, message: "Error sending OTP" };
     }
 };
-
-
 
 exports.verifyOTP = async (email, otp) => {
     console.log('Email:', email);

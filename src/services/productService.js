@@ -1,21 +1,43 @@
-const Product = require('../models/productModel');
+const Product = require('../models/Product');
 
-exports.createProduct = async (data) => {
-    return await Product.create(data);
-};
+class ProductService {
+  async createProduct(productData) {
+    const product = new Product(productData);
+    return await product.save();
+  }
 
-exports.getAllProducts = async () => {
-    return await Product.find();
-};
+  async getAllProducts() {
+    return await Product.find()
+      .populate('category')
+      .populate('subCategory');
+  }
 
-exports.getProductById = async (id) => {
-    return await Product.findById(id);
-};
+  async getProductById(id) {
+    return await Product.findById(id)
+      .populate('category')
+      .populate('subCategory');
+  }
 
-exports.updateProduct = async (id, data) => {
-    return await Product.findByIdAndUpdate(id, data, { new: true });
-};
+  async updateProduct(id, updateData) {
+    return await Product.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true
+    });
+  }
 
-exports.deleteProduct = async (id) => {
+  async deleteProduct(id) {
     return await Product.findByIdAndDelete(id);
-};
+  }
+
+  async getProductsByCategory(categoryId) {
+    return await Product.find({ category: categoryId })
+      .populate('subCategory');
+  }
+
+  async getProductsBySubCategory(subCategoryId) {
+    return await Product.find({ subCategory: subCategoryId })
+      .populate('category');
+  }
+}
+
+module.exports = new ProductService();
