@@ -3,6 +3,7 @@ const cors = require('cors'); // Import cors
 const connectDB = require('./src/db');
 const config = require('./src/config/env');
 
+
 const app = express();
 
 // Connect Database
@@ -22,6 +23,7 @@ app.use(express.json());
 // Routes
 app.use('/api', require('./src/routes/registerRoutes'));
 app.use('/api', require('./src/routes/loginRoutes'));
+
 
 const PORT = config.port || 3000;
 
