@@ -18,6 +18,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  token: { type: String, default: null },
+  otp: { type: String, default: null },
+  otpExpires: { type: Date, default: null },
 });
 
 module.exports = mongoose.model('User', UserSchema);

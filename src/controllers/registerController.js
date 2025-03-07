@@ -3,11 +3,17 @@ const userService = require('../services/registerService');
 exports.getUsers = async (req, res) => {
   try {
     const users = await userService.getAllUsers();
-    res.json(users);
+    res.json({ 
+      success: true,
+      message: "User data fetched successfully",
+      user: req.user,
+      users 
+    });
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).json({ success: false, message: err.message });
   }
 };
+
 
 exports.createUser = async (req, res) => {
   try {
