@@ -11,12 +11,12 @@ connectDB();
 
 // CORS Middleware Configuration
 app.use(cors({
-  origin: 'https://ez-onsite-frontend.vercel.app', // Allow requests from Angular frontend
+  origin: ["http://localhost:4200", "https://ez-onsite-frontend.vercel.app"], 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
   credentials: true // If using cookies or authentication
 }));
-
+  
 // Middleware
 app.use(express.json());
 
