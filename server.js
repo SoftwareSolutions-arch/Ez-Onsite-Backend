@@ -24,7 +24,7 @@ app.use(express.json());
 app.use("/api", require("./src/routes/registerRoutes"));
 app.use("/api", require("./src/routes/loginRoutes"));
 app.use("/api", require("./src/routes/categoryRoutes"));
-app.use("/api", require("./src/routes/subcategoryRoutes"));
+app.use("/api", require("./src/routes/subCategoryRoutes"));
 app.use("/api", require("./src/routes/productRoutes"));
 app.use('/api', require('./src/routes/cartRoutes'));
 app.use('/api', require('./src/routes/wishlistRoutes'));
